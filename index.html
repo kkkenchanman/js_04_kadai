@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kadai</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src='./js/index.js'></script>
+</head>
+<body>
+  <header>
+    <h1>スポーツ雪合戦　大会結果</h1>
+  </header>
+  <main id="main">
+    <section class="resultForm">
+      <h2 class="sectionTitle resultFormTittle">試合結果入力フォーム</h2>
+      <div class="resultFormContent">
+        <div class="selectContent mb3">
+          <select name="" id="tournamentName" class="select tournamentSelect">
+            <option value="" hidden>大会名を選択して下さい</option>
+            <optgroup label="練習">
+              <option value="練習試合">練習試合</option>
+            </optgroup>
+            <optgroup label='大会'>
+              <optgroup label='北海道' id='hokkaido'></optgroup>
+              <optgroup label='東北' id='tohoku'></optgroup>
+              <optgroup label='関東' id='kanto'></optgroup>
+              <optgroup label='中部' id='chubu'></optgroup>
+              <optgroup label='関西' id='kansai'></optgroup>
+              <optgroup label="中国" id='chugoku'></optgroup>
+              <optgroup label="四国" id='shikoku'></optgroup>
+              <optgroup label="九州" id='kyushu'></optgroup>
+            </optgroup>  
+          </select>
+        </div>      
+      <table class='table resultTable mb5'>
+        <tr>
+          <td><input type="text" placeholder="チーム名を入力して下さい" id="team1Name"></td>
+          <td>VS</td>
+          <td><input type="text" placeholder="チーム名を入力して下さい" id="team2Name"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="selectContent">
+              <select name="" id="team1FirstSet" class='setCount select select_01'></select>
+            </div>
+          </td>
+          <td>第1セット</td>
+          <td>
+            <div class="selectContent">
+              <select name="" id="team2FirstSet" class='setCount select select_01'></select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="selectContent">
+              <select name="" id="team1SecondSet" class='setCount select select_01'></select>
+            </div>
+          </td>
+          <td>第2セット</td>
+          <td>
+            <div class="selectContent">
+              <select name="" id="team2SecondSet" class='setCount select select_01'></select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="selectContent">
+              <select name="" id="team1ThirdSet" class='setCount select select_01'></select>
+            </div>
+          </td>
+          <td>第3セット</td>
+          <td>
+            <div class="selectContent">
+              <select name="" id="team2ThirdSet" class='setCount select select_01'></select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td id='team1Result'></td>
+          <td>結果</td>
+          <td id='team2Result'></td>
+        </tr>
+      </table>
+      <div id='submitFileArea'>
+        <input id='submitFile'  type="file" multiple>
+        <div id="submitFileAreaTittle">試合映像or画像をアップ</div>
+        <div id='dropArea'>
+          <p>ドラッグ＆ドロップ<br>または<br>クリック</p>
+        </div>
+
+      </div>
+      <button id='submitBtn'>結果送信</button>
+      </div> 
+        
+    </section>
+    <section class="timeline">
+      <h2 class="sectionTitle timelineTittle">タイムライン</h2>
+      <div id="timelineContents">
+
+      </div>
+    </section>
+  </main>
+  <footer>
+
+
+  </footer>
+
+
+
+
+
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    databaseURL : '',
+    storageBucket : '',
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // firebaseのデーターベース（保存させる場所）を使います
+  const dataStore = firebase.database().ref();
+
+  dataStore.on("child_added", function (data) {
+      //ここに保存されたデータが全て入ってくる
+      // function (data)のdataにfirebaseのデータが入ってくる
+      let values = data.val()
+
+      //テンプレートリテラル `` を活用して変数にhtmlを埋め込もう！
+      for(let i = 0; i < values.hokkaido.length ; i++){
+        let option= `<option value='${values.hokkaido[i]}'>${values.hokkaido[i]}</option>`
+        $("#hokkaido").prepend(option);
+      }
+
+      for(let i = 0; i < values.tohoku.length ; i++){
+        let option = `<option value='${values.tohoku[i]}'>${values.tohoku[i]}</option>`
+        $("#tohoku").prepend(option);
+      }
+
+      for(let i = 0; i < values.kanto.length ; i++){
+        let option = `<option value='${values.kanto[i]}'>${values.kanto[i]}</option>`
+        $("#kanto").prepend(option);
+      }
+
+      for(let i = 0; i < values.chubu.length ; i++){
+        let option = `<option value='${values.chubu[i]}'>${values.chubu[i]}</option>`
+        $("#chubu").prepend(option);
+      }
+
+      for(let i = 0; i < values.kansai.length ; i++){
+        let option = `<option value='${values.kansai[i]}'>${values.kansai[i]}</option>`
+        $("#kansai").prepend(option);
+      }
+
+      for(let i = 0; i < values.chugoku.length ; i++){
+        let option = `<option value='${values.chugoku[i]}'>${values.chugoku[i]}</option>`
+        $("#chugoku").prepend(option);
+      }
+
+      for(let i = 0; i < values.shikoku.length ; i++){
+        let option = `<option value='${values.shikoku[i]}'>${values.shikoku[i]}</option>`
+        $("#shikoku").prepend(option);
+      }
+
+      for(let i = 0; i < values.kyushu.length ; i++){
+        let option = `<option value='${values.kyushu[i]}'>${values.kyushu[i]}</option>`
+        $("#kyushu").prepend(option);
+      }
+
+    });
+
+    const resultDataStore = firebase.database().ref('result');
+    const fileStorage = firebase.storage().ref();
+
+    $('#submitFile').change(function(){
+        // ファイルをアップロード
+        const file = $('#submitFile')[0].files[0]
+        const fileName = file.name
+        const task = fileStorage.child(fileName).put(file)
+    })
+
+    $('#submitBtn').on('click', function(){
+
+      // この「data()」の中に今日の日付データのすべてが格納されている
+      var now = new Date();
+
+      // 西暦
+      var yy = now.getFullYear();
+      // 月(月のデータは「０～１１」が格納されてるので１を足してます)
+      var mm = now.getMonth() + 1;
+      // 日付
+      var dd = now.getDate();
+      // 時間
+      var h = now.getHours();
+      // 分数
+      var m = now.getMinutes();
+      // 秒数
+      var s = now.getSeconds();
+
+      let fileName = ''
+      if(typeof $('#submitFile')[0].files[0] !== 'undefined'){
+        const file = $('#submitFile')[0].files[0]
+        fileName = file.name.toString()
+      }
+
+
+      resultDataStore.push({
+        tournamentName : $('#tournamentName option:selected').val(),
+        time : yy + '年' + mm + '月' + dd + '日' + h + '時' + m +'分',
+        team1 : {
+          teamName : $('#team1Name').val(),
+          firstSetCount : $('#team1FirstSet option:selected').val(),
+          secondSetCount : $('#team1SecondSet option:selected').val(),
+          thirdSetCount : $('#team1ThirdSet option:selected').val(),
+          totalSetCount : $('#team1Result').text()
+        },
+        team2 : {
+          teamName : $('#team2Name').val(),
+          firstSetCount : $('#team2FirstSet option:selected').val(),
+          secondSetCount : $('#team2SecondSet option:selected').val(),
+          thirdSetCount : $('#team2ThirdSet option:selected').val(),
+          totalSetCount : $('#team2Result').text()
+        },
+        fileName : fileName
+      })
+
+      $('#tournamentName').val('');
+      $('.setCount').val('');
+      $('#team1Name').val('');
+      $('#team1Result').text('');
+      $('#team2Name').val('');
+      $('#team2Result').text('');
+      $('#submitFile').val('')
+    })
+
+
+
+    resultDataStore.on("child_added", function (data) {
+      //ここに保存されたデータが全て入ってくる
+      // function (data)のdataにfirebaseのデータが入ってくる
+      let values = data.val()
+
+      let str = `<div class='timelineContent'>
+                  <p class='time'>${values.time}</p>
+                  <h2>${values.tournamentName}</h2>
+                  <table class='table'>
+                    <tr>
+                      <td>${values.team1.teamName}</td>
+                      <td>VS</td>
+                      <td>${values.team2.teamName}</td>
+                    </tr>
+                    <tr>
+                      <td>${values.team1.firstSetCount}</td>
+                      <td>第1セット</td>
+                      <td>${values.team2.firstSetCount}</td>
+                    </tr>
+                    <tr>
+                      <td>${values.team1.secondSetCount}</td>
+                      <td>第2セット</td>
+                      <td>${values.team2.secondSetCount}</td>
+                    </tr>
+                    <tr>
+                      <td>${values.team1.thirdSetCount}</td>
+                      <td>第3セット</td>
+                      <td>${values.team2.thirdSetCount}</td>
+                    </tr>
+                    <tr>
+                      <td>${values.team1.totalSetCount}</td>
+                      <td>結果</td>
+                      <td>${values.team2.totalSetCount}</td>
+                    </tr>
+                  </table>
+                    <div id='contentsArea'>
+                      <img id='displayFile' src=''>  
+                    </div>
+                    <div>
+                      <button id='displayContents' onClick='displayContents()' value='${values.fileName}'>コンテンツを表示</button>
+                    </div>
+                 </div>`; 
+                 
+                 console.log(values.fileName)
+                                
+      // ここでデータをhtmlに埋め込む prependには変数を埋め込もう！
+      $("#timelineContents").prepend(str);
+    });
+
+
+    const displayContents = () =>{
+
+
+
+      let fileName = $('#displayContents').val()
+      console.log(fileName)
+      fileStorage.child(fileName).getDownloadURL().then((url)=>{
+      $('#displayFile')[0].src = url}) 
+         
+    }
+     
+
+      
+  
+
+    
+
+    
+
+</script>
+</body>
+</html>

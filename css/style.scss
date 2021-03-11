@@ -1,0 +1,266 @@
+body{
+  font-family: 'RocknRoll One', sans-serif;
+}
+
+header{
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#00c6ff, #0072ff);
+  color: white;
+  font-size: 2.5rem;
+}
+
+#main{
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  max-width: 1280px;
+  width: 100vw;
+  margin:0 auto;
+  height: 90vh;
+  padding: 2vh;
+}
+
+.resultForm{
+  height: 100%;
+  width: 48%;
+  background-color: #EEF9FF;
+  border-radius: 20px;
+}
+
+.resultFormContent{
+  border:  solid 1px #eeeeee;
+  box-sizing: border-box;
+  padding-top: 5%;
+}
+
+.resultTable{
+
+  td{
+    height: 5vh;
+    vertical-align: middle;
+  }
+}
+
+.table{
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+  vertical-align: middle;
+  
+  td{
+    border-bottom: 1px solid #000;
+    vertical-align: middle;
+    &:nth-child(2){
+      width: 40%;
+    }
+    &:nth-child(1){
+      width: 20%;
+    }
+    &:nth-child(3){
+      width: 20%;
+    }
+  }
+}
+
+.select{
+  display: block;
+  margin: auto;
+  width: 80%;
+  line-height: 1.5rem;
+  background-color: #F99292;
+  border-bottom: solid 4px #FB7D79;
+  text-align: center;
+  border-radius: 20px;
+  color: white;
+}
+
+.selectContent{
+  overflow: hidden;
+  position: relative;
+
+  &::before{
+    color: white;
+    position: absolute;
+    top: 50%;
+    right: 15%;
+    transform: translateY(-50%);
+    content: "▼";
+  }
+
+  &:active{
+      /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+  }
+
+  &:hover{
+    opacity: 0.7;
+  }
+}
+
+.tournamentSelect{
+  padding-left: 10%;
+  line-height: 2.5rem;
+}
+
+.mb2{
+  margin-bottom: 2%;
+}
+
+.mb3{
+  margin-bottom: 3%;
+}
+
+.mb5{
+  margin-bottom: 8%;
+}
+
+.sectionTitle{
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+}
+
+.resultFormTittle{
+  background-color: #78BBE6;
+}
+
+#submitFileArea{
+  position: relative;
+
+  #submitFileAreaTittle{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 5vh;
+    background-color: #F99292;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 4.5vh;
+    z-index: 10;
+  }
+}
+
+#dropArea{
+  width: 80%;
+  height: 28vh;
+  margin: auto;
+  border: 3px dotted gray;
+  margin-bottom: 3%;
+  border-radius: 20px;
+  background-color: #f8f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  &:hover{
+    opacity: 0.5;
+  }
+
+  p{
+    text-align: center;
+    line-height: 2rem;
+  }
+}
+
+#submitFile{
+  display: none;
+}
+
+.timeline{
+  height: 100%;
+  width: 48%;
+}
+
+.timelineTittle{
+  background-color: #FFBC61;
+}
+
+#timelineContents{
+  height: 90%;
+  overflow-y: scroll;
+  border-radius:0px 0px 20px 20px;
+}
+
+.timelineContent{
+  background-color: #fcf7e6;
+  border:  solid 1px #eeeeee;
+  box-sizing: border-box;
+  padding: 1vh;
+
+  h2{
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 1%;
+  }
+}
+
+.time{
+  font-size: 0.8rem;
+  color:gray;
+}
+
+#displayFile{
+  max-width: 100%;
+}
+
+#contentsArea{
+  display: flex;
+  justify-content: center;
+}
+
+#displayContents{
+  display: block;
+  
+}
+
+button{
+  display: block;
+  margin: auto;
+  width: 80%;
+  height: 5vh;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #F99292;/*ボタン色*/
+  color: #FFF;
+  font-family: 'Reggae One', cursive;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-bottom: solid 4px #FB7D79;
+  border-radius: 3px;
+  text-align: center;
+
+  &:active{
+      /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+  }
+
+  &:hover{
+    opacity: 0.7;
+  }
+
+  &:focus{
+    outline: none;
+  }
+}
+
+#displayContents{
+  height: 3vh;
+  width: 50%;
+  border-radius: 20px;
+  font-size: 1rem;
+  line-height: 0.8rem;
+}
